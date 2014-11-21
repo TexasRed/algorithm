@@ -19,7 +19,7 @@ package graph;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-//this is a test adding.
+
 public class DirectedEdge { 
     private int u;
     private int v;
