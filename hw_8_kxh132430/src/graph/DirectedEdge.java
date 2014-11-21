@@ -19,7 +19,7 @@ package graph;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-
+// Now everything looks fine.
 public class DirectedEdge { 
     private int u;
     private int v;
