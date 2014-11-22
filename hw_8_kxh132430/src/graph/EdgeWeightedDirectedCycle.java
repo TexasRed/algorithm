@@ -64,7 +64,7 @@ public class EdgeWeightedDirectedCycle {
     	onStack[v] = true;
     	marked[v] = true;
 
-    	for (DirectedEdge e : G.outgoing(v)) {
+    	for (DirectedEdge e : G.adj(v)) {
     				int w = e.to();
 
     				// short circuit if directed cycle found
