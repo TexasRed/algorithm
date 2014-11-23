@@ -1,5 +1,6 @@
 import graph.DirectedEdge;
 import graph.EdgeWeightedDigraph;
+import graph.EdgeWeightedDirectedCycle;
 import graph.In;
 import graph.IndexMinPQ;
 import graph.Queue;
@@ -14,6 +15,13 @@ public class kxh132430_P8 {
 		In in = new In("G:\\test\\test.txt");
 		
 		EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+		
+		EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(G);
+		
+		if(finder.hasCycle() == true){
+			System.err.println("Non-positive cycle in graph. DAC is not applicable.");
+			System.exit(-1);
+		}
 		
 		long startTime = 0, endTime = 0;
 		
@@ -153,7 +161,7 @@ class BellmanFord{
     	while (!queue.isEmpty()) {
     		int u = queue.dequeue();
     		if((num[u]++) >= G.V()){
-    			throw new RuntimeException("Negative Cycle detected!");
+    			throw new RuntimeException("Non-positive cycle in graph. DAC is not applicable.");
     		}
     		onQueue[u] = false;
     		relax(G, u);

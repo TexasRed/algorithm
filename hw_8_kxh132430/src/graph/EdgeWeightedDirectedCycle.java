@@ -54,9 +54,6 @@ public class EdgeWeightedDirectedCycle {
         
         for (int v = 1; v <= G.V(); v++)
             if (!marked[v]) dfs(G, v);
-
-        // check that digraph has a cycle
-        assert check(G);
     }
     
     // check that algorithm computes either the topological order or finds a directed cycle
@@ -77,14 +74,19 @@ public class EdgeWeightedDirectedCycle {
     				}
 
     				// trace back directed cycle
-    				else if (onStack[w]) {
+    				else if (onStack[w] && onStack[G.S()]) {
+    					long cycleWeight = 0;
     					cycle = new Stack<DirectedEdge>();
     					while (e.from() != w) {
-    						cycle.push(e);
+    						cycle.push(e); 
+    						cycleWeight += e.weight(); 
     						e = edgeTo[e.from()];
     					}
     					cycle.push(e);
-    		}
+    					cycleWeight += e.weight(); 
+    					
+    					if(cycleWeight > 0) cycle =null;
+    				}
     	}
 
         onStack[v] = false;
@@ -113,36 +115,5 @@ public class EdgeWeightedDirectedCycle {
     public Stack<DirectedEdge> getCycle() {
 		return cycle;
 	}
-
-	public void setCycle(Stack<DirectedEdge> cycle) {
-		this.cycle = cycle;
-	}
-
-    
-    // certify that digraph is either acyclic or has a directed cycle
-    private boolean check(EdgeWeightedDigraph G) {
-
-        // edge-weighted digraph is cyclic
-        if (hasCycle()) {
-            // verify cycle
-            DirectedEdge first = null, last = null;
-            for (DirectedEdge e : cycle()) {
-                if (first == null) first = e;
-                if (last != null) {
-                    if (last.to() != e.from()) {
-                        System.err.printf("cycle edges %s and %s not incident\n", last, e);
-                        return false;
-                    }
-                }
-                last = e;
-            }
-
-            if (last.to() != first.from()) {
-                System.err.printf("cycle edges %s and %s not incident\n", last, first);
-                return false;
-            }
-        }
-        return true;
-    }
 
 }
