@@ -205,7 +205,7 @@ class BellmanFord{
 		// print shortest path
 		int t = G.T();
 		System.out.println(dist[t] + " " + count[t] + " " + RT);
-		if(G.V() <= 100){
+		if(G.V() <= 100){ // Print only if V >= 100
 			for(int u = 1; u <= G.V(); u++){
 				String distance = hasPathTo(u)? String.valueOf(dist[u]) : "INF";
 				String predecessor = hasPred(u)? String.valueOf(pred[u]) : "-";
