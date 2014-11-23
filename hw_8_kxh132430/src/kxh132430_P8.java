@@ -11,7 +11,7 @@ public class kxh132430_P8 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		//In in = new In("G:\\test\\p8-data\\channel-20-3.txt");
+		//In in = new In("G:\\test\\p8-data\\rchannel-100-2-3.txt");
 		In in = new In("G:\\test\\test.txt");
 		
 		EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
@@ -66,10 +66,10 @@ class Dijkstra{
 		// Initialization
 		for (int u = 1; u <= G.V(); u++){
 			dist[u] = Long.MAX_VALUE;
+			count[u] = 0;
 		}
 		dist[s] = 0;
 		count[s] = 1;
-
 		// relax vertices in order of distance from s
 		pq = new IndexMinPQ<Long>(G.V() + 1);
 		pq.insert(s, dist[s]);
@@ -91,10 +91,8 @@ class Dijkstra{
             	pq.decreaseKey(v, dist[v]);
             else                
             	pq.insert(v, dist[v]);
-        } else {
-        	if(v != s){
+        } else if(dist[v] == dist[u] + e.weight()){
         		count[v] += count[u];
-        	}
         }
     }
 
@@ -150,6 +148,7 @@ class BellmanFord{
     	onQueue = new boolean[G.V() + 1];
     	for (int u = 1; u <= G.V(); u++){
     		dist[u] = Long.MAX_VALUE;
+    		count[u] = 0;
     	}
     	dist[s] = 0;
     	count[s] = 1;
@@ -181,10 +180,8 @@ class BellmanFord{
                     queue.enqueue(v);
                     onQueue[v] = true;
                 } 
-            } else{
-            	 if(v != G.S()){
+            } else if(dist[v] == dist[u] + e.weight()){
             		 count[v] += count[u];
-            	 }
             }
             
         }

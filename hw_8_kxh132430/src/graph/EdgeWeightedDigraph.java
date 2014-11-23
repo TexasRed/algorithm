@@ -48,7 +48,7 @@ public class EdgeWeightedDigraph {
      */
     @SuppressWarnings("unchecked")
 	public EdgeWeightedDigraph(int V) {
-        if (V <= 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
+        if (V < 3 || V > 1000) throw new IllegalArgumentException("Number of vertices in a Digraph must be within 3 to 1000");
         this.V = V;
         this.E = 0;
         
@@ -69,13 +69,13 @@ public class EdgeWeightedDigraph {
      * @throws java.lang.IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedDigraph(In in) {
-        
     	this(in.readInt());
         int E = in.readInt();
         if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
         this.S = in.readInt();
         this.T = in.readInt();
-        
+        if(E > 100000) 
+        	E = 100000;
         for (int i = 1; i <= E; i++) {
             
         	int u = in.readInt();
