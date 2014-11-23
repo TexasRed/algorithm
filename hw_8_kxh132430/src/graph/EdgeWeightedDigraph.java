@@ -1,6 +1,5 @@
 package graph;
 import java.util.ArrayList;
-import java.util.Stack;
 
 /*************************************************************************
  *  Compilation:  javac EdgeWeightedDigraph.java
@@ -40,7 +39,7 @@ public class EdgeWeightedDigraph {
     private int S;
     private int T;
 	private ArrayList<DirectedEdge>[] adj;
-	private boolean negative;
+	private boolean negativeEdge;
     
 	/**
      * Initializes an empty edge-weighted digraph with <tt>V</tt> vertices and 0 edges.
@@ -90,7 +89,7 @@ public class EdgeWeightedDigraph {
             int w = in.readInt();
             
             if(w < 0) {
-            	this.negative = true;
+            	this.negativeEdge = true;
             }
             
             addEdge(new DirectedEdge(u, v, w));
@@ -99,6 +98,10 @@ public class EdgeWeightedDigraph {
         
     }
 
+    public boolean hasNegativeEdge() {
+		return negativeEdge;
+	}
+    
     /**
      * Returns the number of vertices in the edge-weighted digraph.
      * @return the number of vertices in the edge-weighted digraph
@@ -145,10 +148,6 @@ public class EdgeWeightedDigraph {
     public Iterable<DirectedEdge> adj(int v) {
         validateVertex(v);
         return adj[v];
-    }
-    
-    public boolean negative(){
-    	return negative;
     }
     
     
@@ -201,7 +200,7 @@ public class EdgeWeightedDigraph {
         
         s.append("\nGraph: \n");
         
-        s.append(V + " " + E + " " + S + " " + T + " " + negative + NEWLINE);
+        s.append(V + " " + E + " " + S + " " + T + " " + negativeEdge + NEWLINE);
         for (int v = 1; v <= V; v++) {
             s.append(v + ": ");
             for (DirectedEdge e : adj[v]) {
