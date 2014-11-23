@@ -76,12 +76,12 @@ class Dijkstra{
 		while (!pq.isEmpty()) {
 			int u = pq.delMin();
 			for (DirectedEdge e : G.adj(u))
-				relax(e, s);
+				relax(e);
 		}
 	}
 
     // relax edge e and update pq if changed
-    private void relax(DirectedEdge e, int s) {
+    private void relax(DirectedEdge e) {
         int u = e.from(), v = e.to();
         if (dist[v] > dist[u] + e.weight()) {
             dist[v] = dist[u] + e.weight();
