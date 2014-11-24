@@ -5,7 +5,6 @@ import graph.In;
 import graph.IndexMinPQ;
 import graph.Queue;
 
-
 public class kxh132430_P8_a {
 
 	public static void main(String[] args) {
