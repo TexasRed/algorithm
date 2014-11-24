@@ -6,14 +6,13 @@ import graph.IndexMinPQ;
 import graph.Queue;
 
 
-public class kxh132430_P8 {
+public class kxh132430_P8_a {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		In in = new In("G:\\test\\p8-data\\rchannel-100-2-3.txt");
-		//In in = new In("G:\\test\\test.txt");
-
+		In in = new In("G:\\test\\p8-data\\channel-50-2.txt");
+		
 		EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
 
 		EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(G);
@@ -25,37 +24,32 @@ public class kxh132430_P8 {
 
 		long startTime = 0, endTime = 0;
 
-		if(G.hasNegativeEdge() == false){
-
-			startTime = System.currentTimeMillis();
-			Dijkstra dsp = new Dijkstra(G);
-			endTime = System.currentTimeMillis();
-
-			dsp.setRT(endTime - startTime);
-
-			dsp.printPath(G);
-
-		} else {
+		if(G.hasNegativeEdge()){
 
 			startTime = System.currentTimeMillis();
 			BellmanFord bmf = new BellmanFord(G);
 			endTime = System.currentTimeMillis();
 
-			bmf.setRT(endTime - startTime);
+			bmf.printPath(G, (endTime - startTime));
+			
+		} else {
+			
+			startTime = System.currentTimeMillis();
+			Dijkstra dsp = new Dijkstra(G);
+			endTime = System.currentTimeMillis();
 
-			bmf.printPath(G);
+			dsp.printPath(G, (endTime - startTime));
+			
 		}
-
 	}
 }
 
 class Dijkstra{
 
 	private long[] dist;        
-	private int[] pred;
+	int[] pred;
 	private long[] count;
 	private IndexMinPQ<Long> pq;
-	private long RT;
 
 	Dijkstra(EdgeWeightedDigraph G){
 		int s = G.S();
@@ -96,12 +90,6 @@ class Dijkstra{
 		}
 	}
 
-	/**
-	 * Is there a path from the source vertex <tt>s</tt> to vertex <tt>v</tt>?
-	 * @param u the destination vertex
-	 * @return <tt>true</tt> if there is a path from the source vertex
-	 *    <tt>s</tt> to vertex <tt>v</tt>, and <tt>false</tt> otherwise
-	 */
 	public boolean hasPathTo(int u) {
 		return dist[u] < Long.MAX_VALUE;
 	}
@@ -110,14 +98,10 @@ class Dijkstra{
 		return pred[u] != 0;
 	}
 
-	public void setRT(long time){
-		this.RT = time;
-	}
-
-	public void printPath(EdgeWeightedDigraph G){
+	public void printPath(EdgeWeightedDigraph G, long time){
 		// print shortest path
 		int t = G.T();
-		System.out.println(dist[t] + " " + count[t] + " " + RT);
+		System.out.println(dist[t] + " " + count[t] + " " + time);
 
 		if(G.V() <= 100){
 			for(int u = 1; u <= G.V(); u++){
@@ -126,8 +110,8 @@ class Dijkstra{
 				System.out.println(u + " " + distance + " " + predecessor + " " + count[u]);
 			}
 		}
-	}    
-
+	}   
+	
 }
 
 class BellmanFord{
@@ -137,7 +121,6 @@ class BellmanFord{
 	private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
 	private Queue<Integer> queue;          // queue of vertices to relax
 	private int[] num; // number of calls to relax()
-	private long RT;
 
 	BellmanFord(EdgeWeightedDigraph G){
 
@@ -197,14 +180,10 @@ class BellmanFord{
 		return pred[u] != 0;
 	}
 
-	public void setRT(long time){
-		this.RT = time;
-	}
-
-	public void printPath(EdgeWeightedDigraph G){
+	public void printPath(EdgeWeightedDigraph G, long time){
 		// print shortest path
 		int t = G.T();
-		System.out.println(dist[t] + " " + count[t] + " " + RT);
+		System.out.println(dist[t] + " " + count[t] + " " + time);
 		if(G.V() <= 100){ // Print only if V >= 100
 			for(int u = 1; u <= G.V(); u++){
 				String distance = hasPathTo(u)? String.valueOf(dist[u]) : "INF";
@@ -213,5 +192,4 @@ class BellmanFord{
 			}
 		}
 	} 
-
 }

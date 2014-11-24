@@ -34,12 +34,12 @@ import java.util.ArrayList;
  *  @author Kevin Wayne
  */
 public class EdgeWeightedDigraph {
-    private int V;
-    private int E;
-    private int S;
-    private int T;
-	private ArrayList<DirectedEdge>[] adj;
-	private boolean negativeEdge;
+    protected int V;
+    protected int E;
+    protected int S;
+    protected int T;
+	protected ArrayList<DirectedEdge>[] adj;
+	protected boolean negativeEdge;
     
 	/**
      * Initializes an empty edge-weighted digraph with <tt>V</tt> vertices and 0 edges.
