@@ -105,7 +105,7 @@ class Dijkstra{
 		}
 		dist[s] = 0;  // set dist[0] as 0
 		count[s] = 1; // There is one shortest path from s to s
-		
+
 		// Dijkstra algorithm:
 		// Process each vertex u on the priority queue in ascending order of the distance from s to u.
 		pq = new IndexMinPQ<Long>(G.V() + 1);
@@ -201,7 +201,7 @@ class BellmanFord{
 	 * @param G		The Directed Graph instance of the algorithm.
 	 */
 	BellmanFord(EdgeWeightedDigraph G){
-		
+
 		// Initialization: 
 		int s = G.S();
 		dist = new long[G.V() + 1];
@@ -209,8 +209,8 @@ class BellmanFord{
 		count = new long[G.V() + 1];
 		num = new int[G.V() + 1];
 		inQueue = new boolean[G.V() + 1];
-		
-	    // Set the distance of each vertex to s as infinity, except for s itself.
+
+		// Set the distance of each vertex to s as infinity, except for s itself.
 		for (int u = 1; u <= G.V(); u++){
 			dist[u] = Long.MAX_VALUE; 
 			count[u] = 0;  // Set the number of shortest path from source to each vertex as 0.
@@ -241,7 +241,7 @@ class BellmanFord{
 	 * @param u		The vertex u to be relaxed.
 	 */
 	public void relax(EdgeWeightedDigraph G, int u) {
-		
+
 		// For each neighbor v of u, relax them and put them on queue if dist[v] is updated.
 		for (DirectedEdge e : G.adj(u)) {
 			int v = e.to();
